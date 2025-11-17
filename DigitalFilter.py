@@ -810,10 +810,10 @@ class DigitalFilter:
         Kn = K * (np.prod(1 - zeros) / np.prod(1 - polos))
 
         # remapeando polos e zeros, no tempo discreto:
-        # polos_z = (1 + (polos)) / (1 - (polos))
-        # zeros_z = (1 + (zeros)) / (1 - (zeros))
         polos_z = (1 + (polos)) / (1 - (polos))
         zeros_z = (1 + (zeros)) / (1 - (zeros))
+        # polos_z = (1 + (polos)) / (1 - (polos))
+        # zeros_z = (1 + (zeros)) / (1 - (zeros))
 
         # Adicionando zeros:
         for _ in range(N - M):
@@ -1061,3 +1061,4 @@ class DigitalFilter:
         plt.show()
 
     # ============================================================
+
