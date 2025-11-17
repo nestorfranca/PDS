@@ -116,7 +116,7 @@ class DigitalFilter:
                 The pre-warped frequency (rad/s)
         """
         # return np.tan(omega * Ts / 2)
-        return np.tan(omega * Ts / 2)
+        return (2/Ts) * np.tan(omega * Ts / 2)
 
     # ============================================================
 
@@ -807,13 +807,11 @@ class DigitalFilter:
 
         # ==================================================
         # Calculando novo ganho:
-        Kn = K * (np.prod(1 - zeros) / np.prod(1 - polos))
+        Kn = K * (np.prod((2/Ts) - zeros) / np.prod((2/Ts) - polos))
 
         # remapeando polos e zeros, no tempo discreto:
-        polos_z = (1 + (polos)) / (1 - (polos))
-        zeros_z = (1 + (zeros)) / (1 - (zeros))
-        # polos_z = (1 + (polos)) / (1 - (polos))
-        # zeros_z = (1 + (zeros)) / (1 - (zeros))
+        polos_z = (1 + (polos * (Ts/2))) / (1 - (polos * (Ts/2)))
+        zeros_z = (1 + (zeros * (Ts/2))) / (1 - (zeros * (Ts/2)))
 
         # Adicionando zeros:
         for _ in range(N - M):
@@ -1061,4 +1059,3 @@ class DigitalFilter:
         plt.show()
 
     # ============================================================
-
